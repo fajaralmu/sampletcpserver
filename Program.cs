@@ -12,7 +12,8 @@ namespace TCPCameraStream
         {
             Console.WriteLine("Hello World!");
             CaptureService service = CaptureService.Create(0);
-            TCPServer server = new TCPServer("192.168.30.194", 8080);
+            TCPServer server = new TCPServer("127.0.0.1", 8080);
+            //TCPServer server = new TCPServer("192.168.30.194", 8080);
 
             service.OnCapture += (s, stream) => {
               //  Console.WriteLine("OnCapture");
