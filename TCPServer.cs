@@ -67,9 +67,9 @@ namespace TCPCameraStream
         public void Run()
         {
             //---listen at the specified IP and port no.---
-            Console.WriteLine("starting...");
+            LogMessage("starting...");
             _listener.Start();
-            Console.WriteLine("Started..");
+            LogMessage("Started..");
             int counter = 0;
             while (_running)
             {
@@ -80,15 +80,15 @@ namespace TCPCameraStream
                 {
                     try
                     {
-                        Console.WriteLine($"*******************ACCEPT REQUEST {counter}*******************");
+                        LogMessage($"*******************ACCEPT REQUEST {counter}*******************");
                         Process(client);
-                        Console.WriteLine($"*******************END REQUEST {counter}*******************");
+                        LogMessage($"*******************END REQUEST {counter}*******************");
                     }
                     catch (Exception e)
                     {
-                        Console.WriteLine($"Error processing request {counter}: " + e.Message);
+                        LogMessage($"Error processing request {counter}: " + e.Message);
                     }
-                    Console.WriteLine($"*******************CLOSE CONNECTION {counter}*******************");
+                    LogMessage($"*******************CLOSE CONNECTION {counter}*******************");
                     client.Close();
                 }));
                 thread.Start();
@@ -101,7 +101,7 @@ namespace TCPCameraStream
         {   
             Stream stream = new NetworkStream(client);
             TcpRequest request = GetRequest(stream);
-            Console.WriteLine("REQUEST_RAW:\n" + request.RequestInfo);
+            LogMessage("REQUEST_RAW:\n" + request.RequestInfo);
 
             StreamWriter writer = new StreamWriter(stream);
 
@@ -131,7 +131,7 @@ namespace TCPCameraStream
             //     Task.Delay(500).Wait();
             // } 
 
-            Console.WriteLine("End of process");
+            LogMessage("End of process");
         }
 
         private void HandleMJpeg(StreamWriter writer, Socket client)
@@ -140,8 +140,8 @@ namespace TCPCameraStream
 
 
             mjpegHttpStreamer.WriteMJpegHeader();
-            Console.WriteLine("MJPEG HTTPHeader sent. Now streaming JPEGs.");
-            Console.WriteLine($"_running: {_running}, _jpegStreamBuffer: {_jpegStreamBuffer != null}");
+            LogMessage("MJPEG HTTPHeader sent. Now streaming JPEGs.");
+            LogMessage($"_running: {_running}, _jpegStreamBuffer: {_jpegStreamBuffer != null}");
             try
             {
                 int lastStreamHash = 0; 
@@ -167,10 +167,10 @@ namespace TCPCameraStream
                              
                         } catch (Exception e)
                         {
-                            Console.WriteLine("ERROR HandleMJpeg: "+e.Message);
-                            Console.WriteLine($"client.Bound: {client.IsBound}");
-                            Console.WriteLine($"client.Available: {client.Available}");
-                            Console.WriteLine($"client.Connected: {client.Connected}");
+                            LogMessage("ERROR HandleMJpeg: "+e.Message);
+                            LogMessage($"client.Bound: {client.IsBound}");
+                            LogMessage($"client.Available: {client.Available}");
+                            LogMessage($"client.Connected: {client.Connected}");
                             throw;
                             break;
                         }
@@ -180,9 +180,9 @@ namespace TCPCameraStream
             }
             catch (Exception ex)
             {
-                Console.WriteLine("MJPEG HTTP Stream ended." + ex.ToString());
+                LogMessage("MJPEG HTTP Stream ended." + ex.ToString());
             }
-            Console.WriteLine("MJPEG HTTP Stream ended");
+            LogMessage("MJPEG HTTP Stream ended");
            
 
         }
@@ -244,7 +244,7 @@ namespace TCPCameraStream
 
         private static void WriteResponse(StreamWriter writer, string contentType, byte[] content)
         {
-            Console.WriteLine("Writing response");
+            LogMessage("Writing response");
             writer.AutoFlush = true;
             IDictionary<string, string> headers = new Dictionary<string, string>()
             {
@@ -281,7 +281,7 @@ namespace TCPCameraStream
         }
         // public override void handleGETRequest(HttpProcessor p)
         // {
-        //     Console.WriteLine("request: {0}", p.http_url);
+        //     LogMessage("request: {0}", p.http_url);
         //     p.writeSuccess();
         //     writer.WriteLine("<html><body><h1>test server</h1>");
         //     writer.WriteLine("Current Time: " + DateTime.Now.ToString());
@@ -295,12 +295,18 @@ namespace TCPCameraStream
 
         // public override void handlePOSTRequest(HttpProcessor p, StreamReader inputData)
         // {
-        //     Console.WriteLine("POST request: {0}", p.http_url);
+        //     LogMessage("POST request: {0}", p.http_url);
         //     string data = inputData.ReadToEnd();
 
         //     writer.WriteLine("<html><body><h1>test server</h1>");
         //     writer.WriteLine("<a href=/test>return</a><p>");
         //     writer.WriteLine("postbody: <pre>{0}</pre>", data);
         // }
+
+        private static void LogMessage(string msg)
+        {
+            //
+            Console.WriteLine(msg);
+        }
     }
 }

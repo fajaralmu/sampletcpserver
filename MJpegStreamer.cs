@@ -2,6 +2,7 @@
 using System;
 using System.Drawing;
 using System.IO;
+using System.Linq;
 using System.Net.Sockets;
 using System.Text; 
 
@@ -27,6 +28,7 @@ namespace TCPCameraStream
                     "HTTP/1.0 200 OK\r\n" +
                     //"Pragma: no-cache\r\n" + 
                     "Server: MJPEGStreamer/0.0.1\r\n" +
+                    "Access-Control-Allow-Origin: *\r\n" +
                     //"cache-control: private, max-age=0, no-cache, no-store\r\n" + 
                     "Content-Type: multipart/x-mixed-replace;boundary=--" + _boundary + "\r\n" +
                     "\r\n--" + _boundary + "\r\n" 
@@ -42,7 +44,8 @@ namespace TCPCameraStream
                     "Pragma: no-cache\r\n" + 
                     "Server: MJPEGStreamer/0.0.1\r\n" +
                     "cache-control: private, max-age=0, no-cache, no-store\r\n" + 
-                    "Content-Type: image/jpeg\r\n"
+                    "Content-Type: image/jpeg\r\n" +
+                    "Access-Control-Allow-Origin: *\r\n"
                  );
 
             this._httpSocketStream.Flush();
@@ -76,16 +79,7 @@ namespace TCPCameraStream
 
         }
 
-        public void WriteJpeg(Stream s)
-        {
-
-            Write("Content-Length: " + s.Length + "\r\n\r\n");
-            s.Position = 0;
-            s.CopyTo(_httpSocketStream);
-            _httpSocketStream.Flush();
-            _httpSocketStream.Close();
-        }
-
+        
         public void WriteJpeg(byte[] jpeg)
         {
              
@@ -95,12 +89,14 @@ namespace TCPCameraStream
             sb.AppendLine("Content-Type: image/jpeg");
             sb.AppendLine("User: FAJAR");
             sb.AppendLine("Content-Length: " + jpeg.Length);
+            sb.AppendLine("Access-Control-Allow-Origin: *");
             sb.AppendLine(); 
 
             Write(sb.ToString());
             Write(jpeg);
             //Debug.WriteLine("StreamForRead = " + s.Length);
-           
+            //Console.WriteLine($"Write JPEG byte: {string.Join(",", jpeg.Take(50))}");
+            //Console.WriteLine($"50 last: {string.Join(",", jpeg.Skip(jpeg.Length - 50))}");
             Write("\r\n--" + _boundary + "\r\n");
             
             _httpSocketStream.Flush();
