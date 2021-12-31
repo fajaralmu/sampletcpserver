@@ -1556,26 +1556,23 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\Formulatrix\\.nuget\\packages\\": {},
-    "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {},
+    "C:\\Users\\Republic Of Gamers\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Projects\\Learn\\sampletcpserver\\TCPCameraStream.csproj",
+      "projectUniqueName": "D:\\Development\\DotNet\\TCPCameraStream\\TCPCameraStream.csproj",
       "projectName": "TCPCameraStream",
-      "projectPath": "D:\\Projects\\Learn\\sampletcpserver\\TCPCameraStream.csproj",
-      "packagesPath": "C:\\Users\\Formulatrix\\.nuget\\packages\\",
-      "outputPath": "D:\\Projects\\Learn\\sampletcpserver\\obj\\",
+      "projectPath": "D:\\Development\\DotNet\\TCPCameraStream\\TCPCameraStream.csproj",
+      "packagesPath": "C:\\Users\\Republic Of Gamers\\.nuget\\packages\\",
+      "outputPath": "D:\\Development\\DotNet\\TCPCameraStream\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
-        "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages",
         "C:\\Program Files (x86)\\Microsoft\\Xamarin\\NuGet\\"
       ],
       "configFilePaths": [
-        "C:\\Users\\Formulatrix\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
+        "C:\\Users\\Republic Of Gamers\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
       ],
@@ -1625,18 +1622,12 @@
         ],
         "assetTargetFallback": true,
         "warn": true,
-        "downloadDependencies": [
-          {
-            "name": "Microsoft.NETCore.App.Host.win-x64",
-            "version": "[5.0.13, 5.0.13]"
-          }
-        ],
         "frameworkReferences": {
           "Microsoft.NETCore.App": {
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }

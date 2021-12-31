@@ -47,10 +47,19 @@ namespace TCPCameraStream
 
         private Bitmap GetBmp(string url)
         {
-            WebRequest request      = WebRequest.Create(url);
-            WebResponse response    = request.GetResponse();
-            Stream responseStream   = response.GetResponseStream();
-            return new Bitmap(responseStream);
+            try {
+                WebRequest request      = WebRequest.Create(url);
+                WebResponse response    = request.GetResponse();
+                Stream responseStream   = response.GetResponseStream();
+                return new Bitmap(responseStream);
+            }
+            catch (Exception e)
+            {
+                // get local file
+                int idx = url.LastIndexOf('/');
+                string pictureName = url.Substring(idx + 1, url.Length - idx - 1);
+                return new Bitmap(pictureName);
+            }
         }
 
         public void Start()
