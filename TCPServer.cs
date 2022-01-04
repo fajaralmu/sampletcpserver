@@ -35,12 +35,12 @@ namespace TCPCameraStream
             _port = port;
             _listener = new TcpListener(_ipAddress, _port);
 
-            Task[] tasks = new Task[2];
-            tasks[0] = Task.Run(() => bmp = GetBmp("http://localhost/img/picture.png"));
-            tasks[1] = Task.Run(() => bmp2 = GetBmp("http://localhost/img/SampleFont.png"));
-            Task.WaitAll(tasks);
-            byteImg1 = ImageToByte(bmp);
-            byteImg2 = ImageToByte(bmp2);
+            //Task[] tasks = new Task[2];
+            //tasks[0] = Task.Run(() => bmp = GetBmp("http://localhost/img/picture.png"));
+            //tasks[1] = Task.Run(() => bmp2 = GetBmp("http://localhost/img/SampleFont.png"));
+            //Task.WaitAll(tasks);
+            //byteImg1 = ImageToByte(bmp);
+            //byteImg2 = ImageToByte(bmp2);
 
             
         }
@@ -288,29 +288,7 @@ namespace TCPCameraStream
             byte[] bytes = Encoding.UTF8.GetBytes(text);
             stream.Write(bytes, 0, bytes.Length);
         }
-        // public override void handleGETRequest(HttpProcessor p)
-        // {
-        //     LogMessage("request: {0}", p.http_url);
-        //     p.writeSuccess();
-        //     writer.WriteLine("<html><body><h1>test server</h1>");
-        //     writer.WriteLine("Current Time: " + DateTime.Now.ToString());
-        //     writer.WriteLine("url : {0}", p.http_url);
-
-        //     writer.WriteLine("<form method=post action=/form>");
-        //     writer.WriteLine("<input type=text name=foo value=foovalue>");
-        //     writer.WriteLine("<input type=submit name=bar value=barvalue>");
-        //     writer.WriteLine("</form>");
-        // }
-
-        // public override void handlePOSTRequest(HttpProcessor p, StreamReader inputData)
-        // {
-        //     LogMessage("POST request: {0}", p.http_url);
-        //     string data = inputData.ReadToEnd();
-
-        //     writer.WriteLine("<html><body><h1>test server</h1>");
-        //     writer.WriteLine("<a href=/test>return</a><p>");
-        //     writer.WriteLine("postbody: <pre>{0}</pre>", data);
-        // }
+        
 
         private static void LogMessage(string msg)
         {
